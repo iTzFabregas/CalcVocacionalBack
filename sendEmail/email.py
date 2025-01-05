@@ -16,10 +16,10 @@ def send_email(user_email, score):
     load_dotenv()
 
     try:
-        smtp_server=os.getenv("SMTP_SERVER"),
-        smtp_port=os.getenv("SMTP_PORT"),
-        email_address=os.getenv("EMAIL_ADDRESS"),
-        email_password=os.getenv("EMAIL_PASSWORD"),
+        smtp_server=os.getenv("SMTP_SERVER")
+        smtp_port=os.getenv("SMTP_PORT")
+        email_address=os.getenv("EMAIL_ADDRESS")
+        email_password=os.getenv("EMAIL_PASSWORD")
 
         msg = MIMEMultipart("alternative")
         msg['From'] = email_address
