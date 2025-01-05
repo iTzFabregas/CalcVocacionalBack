@@ -13,7 +13,7 @@ def generate_plot(valores, result_type, main=False):
     num_variaveis = len(labels)
 
     angles = np.linspace(0, 2 * np.pi, num_variaveis, endpoint=False).tolist()
-    valores += valores[:1]
+    valores_buf = valores + valores[:1]
     angles += angles[:1]
 
     fig, ax = plt.subplots(figsize=(12 , 8), subplot_kw=dict(polar=True))
@@ -22,8 +22,8 @@ def generate_plot(valores, result_type, main=False):
     ax.set_thetagrids(np.degrees(angles[:-1]), labels, fontsize=14)
     ax.set_yticklabels([])
 
-    ax.plot(angles, valores, linewidth=3, color='#04caca')
-    ax.fill(angles, valores, color='#06fdfd', alpha=0.3)
+    ax.plot(angles, valores_buf, linewidth=3, color='#04caca')
+    ax.fill(angles, valores_buf, color='#06fdfd', alpha=0.3)
 
     if not main: 
         buf = io.BytesIO()
