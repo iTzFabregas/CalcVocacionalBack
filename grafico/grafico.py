@@ -19,10 +19,17 @@ def generate_plot(valores, result_type, main=False):
     fig, ax = plt.subplots(figsize=(12 , 8), subplot_kw=dict(polar=True))
     ax.set_theta_offset(np.pi / 2)
 
-    ax.set_thetagrids(np.degrees(angles[:-1]), labels, fontsize=14)
+    ax.set_thetagrids(np.degrees(angles[:-1]), labels, fontsize=11, fontweight=500) 
     ax.set_yticklabels([])
 
-    ax.plot(angles, valores_buf, linewidth=3, color='#04caca')
+    ax.grid(color='#CCCCCC', linestyle='solid', linewidth=0.3)
+
+    ax.spines['polar'].set_visible(False)
+    # ax.spines['polar'].set_color('#555555')
+    # ax.spines['polar'].set_linewidth(0.5)
+
+
+    ax.plot(angles, valores_buf, linewidth=1.5, color='#04caca')
     ax.fill(angles, valores_buf, color='#06fdfd', alpha=0.3)
 
     if not main: 
