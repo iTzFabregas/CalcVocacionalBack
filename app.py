@@ -66,7 +66,7 @@ async def db_select_endpoint():
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Erro ao selecionar dados: {str(e)}")
 
-@app.get("/send-email/")
+@app.post("/send-email/")
 async def send_email_endpoint(data: RequestTypeEmail):
     try:
         
