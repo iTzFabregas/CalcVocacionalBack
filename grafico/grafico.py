@@ -22,7 +22,7 @@ def generate_plot(valores, result_type, main=False):
     ax.set_thetagrids(np.degrees(angles[:-1]), labels, fontsize=11, fontweight=500) 
     ax.set_yticklabels([])
 
-    ax.grid(color='#CCCCCC', linestyle='solid', linewidth=0.3)
+    ax.grid(color='#CCCCCC', linestyle='solid', linewidth=0.2)
 
     ax.spines['polar'].set_visible(False)
     # ax.spines['polar'].set_color('#555555')
