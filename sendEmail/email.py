@@ -1,24 +1,28 @@
 from fastapi import HTTPException
-from pydantic import EmailStr
 import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from email.mime.base import MIMEBase
 from email import encoders
 import base64
+from dotenv import load_dotenv
+import os
+
 from grafico.grafico import generate_plot
 
 
 def send_email(user_email, score):
 
+    load_dotenv()
+
     try:
-        SMTP_SERVER = 'smtp.gmail.com'
-        SMTP_PORT = 587
-        EMAIL_ADDRESS = 'fab.sampaioo@gmail.com'
-        EMAIL_PASSWORD = 'obrj hkau wphg htvu'
+        smtp_server=os.getenv("SMTP_SERVER"),
+        smtp_port=os.getenv("SMTP_PORT"),
+        email_address=os.getenv("EMAIL_ADDRESS"),
+        email_password=os.getenv("EMAIL_PASSWORD"),
 
         msg = MIMEMultipart("alternative")
-        msg['From'] = EMAIL_ADDRESS
+        msg['From'] = email_address
         msg['To'] = user_email
         msg['Subject'] = "Gráfico Gerado"
 
@@ -29,9 +33,9 @@ def send_email(user_email, score):
         msg.attach(attachment)
 
         # enviando o email
-        with smtplib.SMTP(SMTP_SERVER, SMTP_PORT) as server:
+        with smtplib.SMTP(smtp_server, smtp_port) as server:
             server.starttls()
-            server.login(EMAIL_ADDRESS, EMAIL_PASSWORD)
+            server.login(email_address, email_password)
             server.send_message(msg)
 
     except Exception as e:
