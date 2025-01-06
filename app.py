@@ -5,7 +5,7 @@ from fastapi.responses import JSONResponse
 from fastapi.encoders import jsonable_encoder
 
 from grafico.grafico import generate_plot
-from db.database import select_all
+from db.database import select_all, save_results
 from sendEmail.email import send_email
 
 app = FastAPI() 
@@ -61,7 +61,15 @@ async def send_email_endpoint(data: RequestTypeEmail):
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Erro ao enviar email: {str(e)}")
 
+@app.post("/save-results")
+async def save_results_endpoint(data: RequestTypeEmail):
+    try:
+        save_results(data.user_email, data.score)
+        return {"message": "Resultados salvos com sucesso!"}
 
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Erro ao salvar os resultados: {str(e)}")
+  
 
 if __name__ == "__main__":
     import uvicorn

@@ -1,13 +1,16 @@
 import psycopg2
+from psycopg2.extras import execute_values
+from psycopg2 import sql
 from dotenv import load_dotenv
 import os
+
+profissoes = ["Computacao", "Eletrica", "Mecatronica", "Aeronautica", "Licenciatura", "Producao", "Materiais", "Civil", "Ambiental"]
 
 def select_all():
 
     load_dotenv()
 
     try:
-        # Conexão com o banco de dados
         conn = psycopg2.connect(
             dbname=os.getenv("DATABASE_NAME"),
             user=os.getenv("USER_NAME"),
@@ -31,5 +34,39 @@ def select_all():
         return lista_resultados
 
     except Exception as e:
-        print(f"Ocorreu um erro: {e}")
+        print(f"Erro ao manipular o banco de dados na hora de selecionar: {e}")
 
+
+def save_results(user_email, scores):
+
+    load_dotenv()
+
+    try:
+        conn = psycopg2.connect(
+            dbname=os.getenv("DATABASE_NAME"),
+            user=os.getenv("USER_NAME"),
+            password=os.getenv("PASSWORD"),
+            host=os.getenv("HOST_IP"),
+            port=os.getenv("PORT")
+        )
+        cursor = conn.cursor()
+        
+
+        delete_query = sql.SQL("DELETE FROM resultado WHERE email = %s;")
+        cursor.execute(delete_query, (user_email, ))
+
+        query = "INSERT INTO resultado (email, profissao, pontuacao) VALUES %s"
+        values = [(user_email, profissao, score) for profissao, score in zip(profissoes, scores)]
+        print(query)
+        print(values)
+        execute_values(cursor, query, values)
+        
+        conn.commit()
+
+
+        cursor.close()
+        conn.close()
+
+
+    except Exception as e:
+        print(f"Erro ao manipular o banco de dados na hora de salvar: {e}")
