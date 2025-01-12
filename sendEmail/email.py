@@ -49,7 +49,7 @@ def generate_body(score):
         body = """
             <html>
             <body
-                style="font-family: 'Roboto', Arial, sans-serif; line-height: 1.6; color: #333; width: 600px; margin: auto; background-color: #f9f9f9; padding: 0px;">
+                style="font-family: 'Roboto', Arial, sans-serif; line-height: 1.6; color: #333; width: 600px; margin: auto; padding: 0px;">
 
                 <table width="600" align="center" border="0" cellpadding="0" cellspacing="0">
                     <thead>
