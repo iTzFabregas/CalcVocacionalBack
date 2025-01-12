@@ -8,6 +8,7 @@ import base64
 from dotenv import load_dotenv
 import os
 
+from areas import areas
 from grafico.grafico import generate_plot
 
 
@@ -44,120 +45,76 @@ def send_email(user_email, score):
 
 def generate_body(score):
     try:
-        image_base64 = generate_plot(score, "total")
 
-        body = f"""
-        <html>
+        body = """
+            <html>
             <body
-                style="font-family: Arial, sans-serif; line-height: 1.6; color: #333; width: 580px; margin: 0 auto; background-color: #f9f9f9; padding: 20px;">
+                style="font-family: 'Roboto', Arial, sans-serif; line-height: 1.6; color: #333; width: 600px; margin: 0; background-color: #f9f9f9; padding: 0px;">
 
-                <!-- <h1 style="color: #0056b3; text-align: center; margin-bottom: 40px;">Profissões de Afinidade</h1> -->
-                <!-- 
-                <p style="font-size: 16px; color: #555;">Olá,</p>
-                <p style="font-size: 16px; color: #555;">Segue abaixo as 4 profissões que você mais teve afinidade:</p> -->
-
-                <table style="width: 100%; margin: 20px 0;">
+                <table width="600" align="center" border="0" cellpadding="0" cellspacing="0">
                     <thead>
-                        <tr style="">
+                        <tr>
                             <th style="text-align: center;">
-                                <img src="./jornadas.png" alt="Jornadas" style="width: 125px; " />
-                                <p style="font-size: 16px; margin-bottom: 25px;">Segue abaixo as 4 profissões que você mais teve afinidade:</p>
+                                <img src="./https://main.d2dkvrfv0o0fyy.amplifyapp.com/jornadas-header-email.png" alt="Jornadas header" style="width: 600px;" />
                             </th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
+                            <td style="padding: 10px;">
+                                <p style="font-size: 18px;">Olá,</p>
+                                <p style="font-size: 18px; margin-bottom: 25px;">Segue abaixo as 4 profissões que você mais teve
+                                    afinidade:</p>
+                            </td>
+                        </tr>
+        """
+
+        indices_ordenados = sorted(range(len(score)), key=lambda i: score[i], reverse=True)
+        indices_ordenados = indices_ordenados[:4]
+
+        for i in indices_ordenados:
+            body += f"""
+                        <tr>
                             <td>
-                                <h2 style="color: #2c3e50; font-size: 30px; text-align: center; margin: 10px;">Computação</h2>
+                                <h2 style="color: #2c3e50; font-size: 32px; text-align: center; margin: 10px;">{areas[i].area}</h2>
                             </td>
                         </tr>
                         <tr>
                             <td style="padding: 10px;">
-                                <!-- Texto com borda -->
-                                <p style="font-size: 16px; color: #333; border: 2px solid #0056b3; border-radius: 10px; padding: 10px; margin-bottom: 10px;">
-                                    <strong style="color: #0056b3;">Engenharia de Computação:</strong> A Engenharia de Computação é
-                                    um curso de graduação com duração média de cinco anos, que combina conhecimentos de hardware e
-                                    software para formar profissionais capazes de desenvolver e integrar sistemas computacionais.
+                    """
+            for j in range(len(areas[i].cursos)):
+                body += f"""
+                                <p
+                                    style="font-size: 16px; color: #333; border: 2px solid #04caca; border-radius: 10px; padding: 10px; margin-bottom: 10px;">
+                                    <strong style="color: #04caca;">{areas[i].cursos[j].nome}:</strong> {areas[i].cursos[j].resumo}
                                 </p>
-
-                                <p style="font-size: 16px; color: #333; border: 2px solid #0056b3; border-radius: 10px; padding: 10px; margin-bottom: 10px;">
-                                    <strong style="color: #0056b3;">Ciência da Computação:</strong> A Ciência da Computação é um
-                                    curso de graduação com duração média de quatro anos, focado no estudo dos fundamentos teóricos e
-                                    práticos da computação.
-                                </p>
-
-                                <p style="font-size: 16px; color: #333; border: 2px solid #0056b3; border-radius: 10px; padding: 10px; margin-bottom: 10px;">
-                                    <strong style="color: #0056b3;">Ciência de Dados:</strong> A Ciência de Dados é um curso de
-                                    graduação que combina conhecimentos de estatística, matemática e computação para analisar
-                                    grandes volumes de dados e extrair informações valiosas.
-                                </p>
-
-                                <p style="font-size: 16px; color: #333; border: 2px solid #0056b3; border-radius: 10px; padding: 10px; margin-bottom: 10px;">
-                                    <strong style="color: #0056b3;">Sistemas de Informação:</strong> Sistemas de Informação é uma
-                                    graduação com duração média de quatro anos, que integra conhecimentos de tecnologia e gestão
-                                    para desenvolver soluções que otimizem o fluxo de informações nas organizações.
-                                </p>
-
-                                <p style="font-size: 16px; color: #333; border: 2px solid #0056b3; border-radius: 10px; padding: 10px; margin-bottom: 10px;">
-                                    <strong style="color: #0056b3;">Análise de Desenvolvimento de Sistemas:</strong> O curso de
-                                    Análise e Desenvolvimento de Sistemas é uma graduação tecnológica com duração média de dois a
-                                    três anos, focada na formação de profissionais aptos a projetar, desenvolver, testar e manter
-                                    sistemas computacionais.
-                                </p>
+                        """
+            body += """
                             </td>
                         </tr>
+                """
 
+        body += """
                         <tr>
-                            <td>
-                                <h2 style="color: #2c3e50; font-size: 30px; text-align: center; margin: 10px;">Computação</h2>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td style="padding: 10px;">
-                                <!-- Texto com borda -->
-                                <p style="font-size: 16px; color: #333; border: 2px solid #0056b3; border-radius: 10px; padding: 10px; margin-bottom: 10px;">
-                                    <strong style="color: #0056b3;">Engenharia de Computação:</strong> A Engenharia de Computação é
-                                    um curso de graduação com duração média de cinco anos, que combina conhecimentos de hardware e
-                                    software para formar profissionais capazes de desenvolver e integrar sistemas computacionais.
-                                </p>
-
-                                <p style="font-size: 16px; color: #333; border: 2px solid #0056b3; border-radius: 10px; padding: 10px; margin-bottom: 10px;">
-                                    <strong style="color: #0056b3;">Ciência da Computação:</strong> A Ciência da Computação é um
-                                    curso de graduação com duração média de quatro anos, focado no estudo dos fundamentos teóricos e
-                                    práticos da computação.
-                                </p>
-
-                                <p style="font-size: 16px; color: #333; border: 2px solid #0056b3; border-radius: 10px; padding: 10px; margin-bottom: 10px;">
-                                    <strong style="color: #0056b3;">Ciência de Dados:</strong> A Ciência de Dados é um curso de
-                                    graduação que combina conhecimentos de estatística, matemática e computação para analisar
-                                    grandes volumes de dados e extrair informações valiosas.
-                                </p>
-
-                                <p style="font-size: 16px; color: #333; border: 2px solid #0056b3; border-radius: 10px; padding: 10px; margin-bottom: 10px;">
-                                    <strong style="color: #0056b3;">Sistemas de Informação:</strong> Sistemas de Informação é uma
-                                    graduação com duração média de quatro anos, que integra conhecimentos de tecnologia e gestão
-                                    para desenvolver soluções que otimizem o fluxo de informações nas organizações.
-                                </p>
-
-                                <p style="font-size: 16px; color: #333; border: 2px solid #0056b3; border-radius: 10px; padding: 10px; margin-bottom: 10px;">
-                                    <strong style="color: #0056b3;">Análise de Desenvolvimento de Sistemas:</strong> O curso de
-                                    Análise e Desenvolvimento de Sistemas é uma graduação tecnológica com duração média de dois a
-                                    três anos, focada na formação de profissionais aptos a projetar, desenvolver, testar e manter
-                                    sistemas computacionais.
-                                </p>
+                            <td style="text-align: center; padding-top: 10px;">
+                                <a href="https://www.exemplo.com"
+                                    style="background-color:#04caca; color:white; padding:10px 20px; text-decoration:none; border-radius:5px;">
+                                    Clique aqui para saber mais!
+                                </a>
                             </td>
                         </tr>
                     </tbody>
                 </table>
 
-                <!-- Rodapé -->
                 <p style="text-align: center; font-size: 12px; color: #999; margin-top: 40px;">
                     Este é um e-mail automático. Por favor, não responda.
                 </p>
 
             </body>
-        </html>
-        """
+
+            </html>
+            """
+
 
         body = MIMEText(body, 'html')
 
