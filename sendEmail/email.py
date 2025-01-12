@@ -8,7 +8,7 @@ import base64
 from dotenv import load_dotenv
 import os
 
-from areas import areas
+from sendEmail.areas import areas
 from grafico.grafico import generate_plot
 
 
@@ -49,21 +49,21 @@ def generate_body(score):
         body = """
             <html>
             <body
-                style="font-family: 'Roboto', Arial, sans-serif; line-height: 1.6; color: #333; width: 600px; margin: 0; background-color: #f9f9f9; padding: 0px;">
+                style="font-family: 'Roboto', Arial, sans-serif; line-height: 1.6; color: #333; width: 600px; margin: auto; background-color: #f9f9f9; padding: 0px;">
 
                 <table width="600" align="center" border="0" cellpadding="0" cellspacing="0">
                     <thead>
                         <tr>
                             <th style="text-align: center;">
-                                <img src="./https://main.d2dkvrfv0o0fyy.amplifyapp.com/jornadas-header-email.png" alt="Jornadas header" style="width: 600px;" />
+                                <img src="https://main.d2dkvrfv0o0fyy.amplifyapp.com/jornadas-header-email.png" alt="Jornadas header" style="width: 600px;" />
                             </th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td style="padding: 10px;">
-                                <p style="font-size: 18px;">Olá,</p>
-                                <p style="font-size: 18px; margin-bottom: 25px;">Segue abaixo as 4 profissões que você mais teve
+                            <td style="padding: 0 10px;">
+                                <p style="font-size: 14px;">Olá,</p>
+                                <p style="font-size: 14px; margin-bottom: 25px;">Segue abaixo as 4 profissões que você mais teve
                                     afinidade:</p>
                             </td>
                         </tr>
@@ -76,17 +76,17 @@ def generate_body(score):
             body += f"""
                         <tr>
                             <td>
-                                <h2 style="color: #2c3e50; font-size: 32px; text-align: center; margin: 10px;">{areas[i].area}</h2>
+                                <h2 style="color: #2c3e50; font-size: 28px; text-align: center; margin: 6px;">{areas[i]['area']}</h2>
                             </td>
                         </tr>
                         <tr>
                             <td style="padding: 10px;">
                     """
-            for j in range(len(areas[i].cursos)):
+            for j in range(len(areas[i]['cursos'])):
                 body += f"""
                                 <p
-                                    style="font-size: 16px; color: #333; border: 2px solid #04caca; border-radius: 10px; padding: 10px; margin-bottom: 10px;">
-                                    <strong style="color: #04caca;">{areas[i].cursos[j].nome}:</strong> {areas[i].cursos[j].resumo}
+                                    style="font-size: 14px; color: #333; border: 2px solid #04caca; border-radius: 10px; padding: 10px; margin-bottom: 10px;">
+                                    <strong style="color: #04caca;">{areas[i]['cursos'][j]['nome']}:</strong> {areas[i]['cursos'][j]['resumo']}
                                 </p>
                         """
             body += """
@@ -97,8 +97,8 @@ def generate_body(score):
         body += """
                         <tr>
                             <td style="text-align: center; padding-top: 10px;">
-                                <a href="https://www.exemplo.com"
-                                    style="background-color:#04caca; color:white; padding:10px 20px; text-decoration:none; border-radius:5px;">
+                                <a href=""
+                                    style="background-color:#04caca; color:white; padding:10px 20px; text-decoration:none; border-radius:5px; font-size: 14px;">
                                     Clique aqui para saber mais!
                                 </a>
                             </td>

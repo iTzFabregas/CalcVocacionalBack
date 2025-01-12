@@ -3,7 +3,7 @@ areas = [
                 "area": "Computação",
                 "cursos": [
                     {
-                        "nome": "Engenharia de Computação",
+                        "nome": "Engenharia de Computação", 
                         "resumo": "A Engenharia de Computação é um curso de graduação com duração média de cinco anos, que combina conhecimentos de hardware e software para formar profissionais capazes de desenvolver e integrar sistemas computacionais.",
                         "descricao": "A Engenharia de Computação é um curso de graduação com duração média de cinco anos, que combina conhecimentos de hardware e software para formar profissionais capazes de desenvolver e integrar sistemas computacionais. Durante a faculdade, os alunos estudam disciplinas fundamentais como Matemática, Física, Circuitos Elétricos, Eletrônica Digital, Arquitetura de Computadores, Linguagens de Programação, Estruturas de Dados, Sistemas Operacionais e Redes de Computadores. Além disso, há matérias focadas em Engenharia de Software, Inteligência Artificial e Sistemas Embarcados.",
                         "cargos": [
