@@ -4,7 +4,7 @@ from psycopg2 import sql
 from dotenv import load_dotenv
 import os
 
-profissoes = ["Computacao", "Eletrica", "Mecatronica", "Aeronautica", "Licenciatura", "Producao", "Materiais", "Civil", "Ambiental"]
+from defines import areas
 
 def select_all():
 
@@ -56,7 +56,7 @@ def save_results(user_email, scores):
         cursor.execute(delete_query, (user_email, ))
 
         query = "INSERT INTO resultado (email, profissao, pontuacao) VALUES %s"
-        values = [(user_email, profissao, score) for profissao, score in zip(profissoes, scores)]
+        values = [(user_email, profissao, score) for profissao, score in zip(areas, scores)]
         print(query)
         print(values)
         execute_values(cursor, query, values)

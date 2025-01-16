@@ -3,7 +3,7 @@ import numpy as np
 import io
 import base64
 
-labels = ["Computacao", "Eletrica", "Mecatronica", "Aeronautica", "Licenciatura", "Producao", "Materiais", "Civil", "Ambiental"]
+from defines import areas as labels
 
 def generate_plot(valores, result_type, main=False):
 

@@ -25,7 +25,7 @@ def send_email(user_email, score):
         msg = MIMEMultipart("alternative")
         msg['From'] = email_address
         msg['To'] = user_email
-        msg['Subject'] = "Gráfico Gerado"
+        msg['Subject'] = "Jornadas - Resultado Cálculo Vocacional"
 
         body = generate_body(score)
         msg.attach(body)
