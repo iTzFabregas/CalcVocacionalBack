@@ -3,12 +3,9 @@ import numpy as np
 import io
 import base64
 
-def generate_plot(valores, result_type, main=False):
+labels = ["Computacao", "Eletrica", "Mecatronica", "Aeronautica", "Licenciatura", "Producao", "Materiais", "Civil", "Ambiental"]
 
-    if result_type == 'parcial':
-        labels = ["?", "?", "?", "?", "?", "?", "?" ,"?", "?"]
-    else:
-        labels = ["Computacao", "Eletrica", "Mecatronica", "Aeronautica", "Licenciatura", "Producao", "Materiais", "Civil", "Ambiental"]
+def generate_plot(valores, result_type, main=False):
 
     num_variaveis = len(labels)
 
@@ -25,27 +22,16 @@ def generate_plot(valores, result_type, main=False):
     ax.grid(color='#CCCCCC', linestyle='solid', linewidth=0.2)
 
     ax.spines['polar'].set_visible(False)
-    # ax.spines['polar'].set_color('#555555')
-    # ax.spines['polar'].set_linewidth(0.5)
-
 
     ax.plot(angles, valores_buf, linewidth=1.5, color='#04caca')
     ax.fill(angles, valores_buf, color='#06fdfd', alpha=0.3)
 
-    if not main: 
-        buf = io.BytesIO()
-        plt.savefig(buf, format="png")
-        buf.seek(0)
-        plt.close()
+    buf = io.BytesIO()
+    plt.savefig(buf, format="png")
+    buf.seek(0)
+    plt.close()
 
-        image_base64 = base64.b64encode(buf.read()).decode('utf-8')
-        buf.close()
+    image_base64 = base64.b64encode(buf.read()).decode('utf-8')
+    buf.close()
 
-        return image_base64
-
-    plt.savefig("grafico.png")
-
-
-if __name__ == "__main__":
-      valores = [16,9,21,7,-35,-3,-22,-44,-38]
-      generate_plot(valores, 'total', True)
+    return image_base64
