@@ -57,8 +57,6 @@ def save_results(user_email, scores):
 
         query = "INSERT INTO resultado (email, profissao, pontuacao) VALUES %s"
         values = [(user_email, profissao, score) for profissao, score in zip(areas, scores)]
-        print(query)
-        print(values)
         execute_values(cursor, query, values)
         
         conn.commit()
