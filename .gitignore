@@ -2,3 +2,4 @@ __pycache__/
 grafico.png
 myenv/
 template/
+.env
