@@ -18,6 +18,8 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+UPLOAD_DIR = "./uploads/"
+
 class RequestTypePlot(BaseModel):
     score: list[int]
     result_type: str
@@ -70,6 +72,19 @@ async def save_results_endpoint(data: RequestTypeEmail):
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Erro ao salvar os resultados: {str(e)}")
   
+@app.post("/upload-image/")
+async def upload_image(file: UploadFile):
+    if not os.path.exists(UPLOAD_DIR):
+        os.makedirs(UPLOAD_DIR)
+
+    file_path = os.path.join(UPLOAD_DIR, file.filename)
+
+    with open(file_path, "wb") as buffer:
+        shutil.copyfileobj(file.file, buffer)
+
+    # Gere a URL pública (ajuste para o domínio do seu site)
+    public_url = f"https://3.12.246.4:4000/uploads/{file.filename}"
+    return JSONResponse({"url": public_url})
 
 if __name__ == "__main__":
     import uvicorn
