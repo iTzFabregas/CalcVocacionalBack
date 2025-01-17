@@ -3,3 +3,4 @@ grafico.png
 myenv/
 template/
 .env
+*.exmp
