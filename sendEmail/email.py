@@ -55,7 +55,7 @@ def generate_body(score):
                     <thead>
                         <tr>
                             <th style="text-align: center;">
-                                <img src="https://main.d2dkvrfv0o0fyy.amplifyapp.com/jornadas-header-email.png" alt="Jornadas header" style="width: 600px; background-color: transparent;" />
+                                <img src="https://main.d11ri1d2o93nbr.amplifyapp.com/jornadas-header-email.png" alt="Jornadas header" style="width: 600px; background-color: transparent;" />
                             </th>
                         </tr>
                     </thead>
