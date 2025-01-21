@@ -63,7 +63,7 @@ def generate_body(score):
                         <tr>
                             <td style="padding: 0 10px;">
                                 <p style="font-size: 14px;">Olá,</p>
-                                <p style="font-size: 14px; margin-bottom: 25px;">Segue abaixo as 4 profissões que você mais teve
+                                <p style="font-size: 14px; margin-bottom: 25px;">Segue abaixo as 4 áreas que você mais teve
                                     afinidade:</p>
                             </td>
                         </tr>
