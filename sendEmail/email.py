@@ -95,14 +95,6 @@ def generate_body(score):
                 """
 
         body += """
-                        <tr>
-                            <td style="text-align: center; padding-top: 10px;">
-                                <a href=""
-                                    style="background-color:#04caca; color:white; padding:10px 20px; text-decoration:none; border-radius:5px; font-size: 14px;">
-                                    Clique aqui para saber mais!
-                                </a>
-                            </td>
-                        </tr>
                     </tbody>
                 </table>
 
